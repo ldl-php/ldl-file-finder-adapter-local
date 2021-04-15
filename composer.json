@@ -1,0 +1,30 @@
+{
+    "name": "ldl-framework/file-finder-adapter-local",
+    "description": "LDL Framework for file validators",
+    "homepage": "https://github.com/pthreat/ldl-file-validators",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Federico",
+            "email": "jpfstange@gmail.com"
+        },
+        {
+            "name": "Gonzalo Coda",
+            "email": "gonzalocoda@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.3",
+        "ext-json": "*",
+        "ldl-framework/file-common": "dev-master",
+        "ldl-framework/file-finder": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "LDL\\File\\Finder\\Adapter\\Local\\": "src/LDL/File/Finder/Adapter/Local"
+        }
+    }
+}
