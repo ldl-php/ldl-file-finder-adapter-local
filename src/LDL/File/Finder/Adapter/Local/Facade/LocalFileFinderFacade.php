@@ -8,7 +8,7 @@ use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Finder\Facade\FinderFacadeInterface;
 use LDL\File\Finder\FileFinder;
 use LDL\File\Finder\FinderResult;
-use LDL\Validators\Chain\ValidatorChain;
+use LDL\Validators\Chain\AndValidatorChain;
 
 class LocalFileFinderFacade implements FinderFacadeInterface
 {
@@ -20,7 +20,7 @@ class LocalFileFinderFacade implements FinderFacadeInterface
         iterable $onFile=null
     ) : iterable
     {
-        $l = new LocalFileFinderAdapter(new ValidatorChain($validators));
+        $l = new LocalFileFinderAdapter(new AndValidatorChain($validators));
 
         if(null !== $onAccept){
             $l->onAccept()->appendMany($onAccept);

@@ -5,14 +5,14 @@ namespace LDL\File\Finder\Adapter\Local;
 use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\File\Finder\Adapter\AdapterInterface;
 use LDL\File\Finder\FoundFile;
+use LDL\Validators\Chain\AndValidatorChain;
 use LDL\Validators\HasValidatorResultInterface;
-use LDL\Validators\Chain\ValidatorChain;
 use LDL\Validators\Chain\ValidatorChainInterface;
 
 class LocalFileFinderAdapter implements AdapterInterface
 {
     /**
-     * @var ValidatorChain
+     * @var ValidatorChainInterface
      */
     private $validators;
 
@@ -41,7 +41,7 @@ class LocalFileFinderAdapter implements AdapterInterface
 
     public function __construct(ValidatorChainInterface $validatorChain = null)
     {
-        $this->validators = $validatorChain ?? new ValidatorChain();
+        $this->validators = $validatorChain ?? new AndValidatorChain();
         $this->onFile = new CallableCollection();
         $this->onReject = new CallableCollection();
         $this->onAccept = new CallableCollection();

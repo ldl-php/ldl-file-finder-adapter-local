@@ -10,3 +10,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
+- fix/1200366404543322 - Fix adapter to comply with validators
+
