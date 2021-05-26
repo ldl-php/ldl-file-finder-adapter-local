@@ -2,14 +2,14 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use LDL\File\Finder\Adapter\Local\Facade\LocalFileFinderFacade;
 use LDL\File\Finder\FoundFile;
+use LDL\Validators\HasValidatorResultInterface;
+use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Validator\FileTypeValidator;
 use LDL\File\Validator\Config\FileTypeValidatorConfig;
 use LDL\File\Validator\FileSizeValidator;
 use LDL\File\Validator\Config\FileSizeValidatorConfig;
 use LDL\File\Validator\HasRegexContentValidator;
-use LDL\Validators\HasValidatorResultInterface;
 use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
 use LDL\Validators\RegexValidator;
@@ -35,31 +35,20 @@ try{
         new HasRegexContentValidator($match, true)
     ]);
 
-    $directoryChain = new AndValidatorChain([
-        new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_DIRECTORY]),
-        new RegexValidator($match)
-    ]);
-
     if($depth > 0){
-        $fileChain->unshift(new DirectoryDepthValidator($depth, true));
-        $directoryChain->unshift(new DirectoryDepthValidator($depth, true));
+        $fileChain->unshift(new DirectoryDepthValidator($depth));
     }
 
-    $r = LocalFileFinderFacade::findResult(
-        $files,
+    $r = (new LocalFileFinderAdapter(
         new OrValidatorChain([
             $fileChain,
-            $directoryChain
-        ]),
-        [
-          static function (string $path){
-            dump('Accept:', $path);
-          }
-        ]
-    );
+            new AndValidatorChain([
+                new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_DIRECTORY]),
+                new RegexValidator($match)
+            ])
+        ])
+    ))->find($files);
 
-    dump("DUMP FOUND FILES");
-    dump($r->count());
     /**
      * @var FoundFile $f
      */
