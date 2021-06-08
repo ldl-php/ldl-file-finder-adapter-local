@@ -5,16 +5,20 @@ namespace LDL\File\Finder\Adapter\Local;
 use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\File\Finder\Adapter\AdapterInterface;
 use LDL\File\Finder\FoundFile;
-use LDL\Validators\HasValidatorResultInterface;
-use LDL\Validators\Chain\ValidatorChain;
 use LDL\Validators\Chain\ValidatorChainInterface;
+use LDL\Validators\HasValidatorResultInterface;
 
 class LocalFileFinderAdapter implements AdapterInterface
 {
     /**
-     * @var ValidatorChain
+     * @var ValidatorChainInterface
      */
     private $validators;
+
+    /**
+     * @var ValidatorChainInterface
+     */
+    private $validatorsResult;
 
     /**
      * @var CallableCollection
@@ -41,10 +45,11 @@ class LocalFileFinderAdapter implements AdapterInterface
 
     public function __construct(ValidatorChainInterface $validatorChain = null)
     {
-        $this->validators = $validatorChain ?? new ValidatorChain();
+        $this->validators = $validatorChain;
         $this->onFile = new CallableCollection();
         $this->onReject = new CallableCollection();
         $this->onAccept = new CallableCollection();
+        $this->validatorsResult = $this->validators->filterByInterfaceRecursive(HasValidatorResultInterface::class);
     }
 
     public function onFile() : CallableCollection
@@ -96,29 +101,31 @@ class LocalFileFinderAdapter implements AdapterInterface
                     continue;
                 }
 
-                if(is_dir($file)){
-                    yield from $this->find([$file]);
-                }
-
                 try{
-                    $this->validators->validate($file);
+                    if(null !== $this->validators) {
+                        $this->validators->validate($file);
+                    }
 
                     $foundFile = new FoundFile(
                         $file,
                         new \SplFileInfo($file),
-                        $this->validators->filterByInterface(HasValidatorResultInterface::class)
+                        $this->validatorsResult->getCollection()
                     );
 
                     $this->onAccept()->call($file, $this->validators);
 
                     yield $foundFile;
+
+                    if(is_dir($file)){
+                        yield from $this->find([$file]);
+                    }
+
                 }catch(\Exception $e){
 
                     $this->onReject()->call($file, $this->validators);
 
                     continue;
                 }
-
             }
         }
     }
@@ -128,7 +135,7 @@ class LocalFileFinderAdapter implements AdapterInterface
         return $this->count;
     }
 
-    public function getValidatorChain(): ValidatorChainInterface
+    public function getValidatorChain(): ?ValidatorChainInterface
     {
         return $this->validators;
     }

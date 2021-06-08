@@ -12,15 +12,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-common.git",
-                "reference": "142e02d9ea2fb0f0bc73bf25dfabe2fb2c2fb4a8"
+                "reference": "13e5ecccfee7381aced36a095ac1059e2e685889"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/142e02d9ea2fb0f0bc73bf25dfabe2fb2c2fb4a8",
-                "reference": "142e02d9ea2fb0f0bc73bf25dfabe2fb2c2fb4a8",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/13e5ecccfee7381aced36a095ac1059e2e685889",
+                "reference": "13e5ecccfee7381aced36a095ac1059e2e685889",
                 "shasum": ""
             },
             "require": {
+                "ext-fileinfo": "*",
                 "ext-json": "*",
                 "ldl-framework/typed-collection": "dev-master",
                 "php": ">=7.3"
@@ -56,7 +57,7 @@
                 "issues": "https://github.com/pthreat/ldl-file-common/issues",
                 "source": "https://github.com/pthreat/ldl-file-common/tree/master"
             },
-            "time": "2021-04-15T19:41:07+00:00"
+            "time": "2021-06-08T15:08:20+00:00"
         },
         {
             "name": "ldl-framework/file-finder",
@@ -64,12 +65,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-finder.git",
-                "reference": "f8923090a03de496da30a500c394ed9043b8c331"
+                "reference": "4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/f8923090a03de496da30a500c394ed9043b8c331",
-                "reference": "f8923090a03de496da30a500c394ed9043b8c331",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672",
+                "reference": "4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672",
                 "shasum": ""
             },
             "require": {
@@ -109,9 +110,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pthreat/ldl-file-finder/issues",
-                "source": "https://github.com/pthreat/ldl-file-finder/tree/feature/1200203297621240"
+                "source": "https://github.com/pthreat/ldl-file-finder/tree/master"
             },
-            "time": "2021-04-15T19:48:31+00:00"
+            "time": "2021-05-28T14:52:05+00:00"
         },
         {
             "name": "ldl-framework/framework-base",
@@ -119,12 +120,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-framework-base.git",
-                "reference": "08878076a4935887c64ba9bf199257413174bf2e"
+                "reference": "97998bce3fa2c28350253ca304a8142379d3530d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-framework-base/zipball/08878076a4935887c64ba9bf199257413174bf2e",
-                "reference": "08878076a4935887c64ba9bf199257413174bf2e",
+                "url": "https://api.github.com/repos/pthreat/ldl-framework-base/zipball/97998bce3fa2c28350253ca304a8142379d3530d",
+                "reference": "97998bce3fa2c28350253ca304a8142379d3530d",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +152,9 @@
             "description": "LDL Framework base contracts and exceptions",
             "support": {
                 "issues": "https://github.com/pthreat/ldl-framework-base/issues",
-                "source": "https://github.com/pthreat/ldl-framework-base/tree/feature/1200197097272268"
+                "source": "https://github.com/pthreat/ldl-framework-base/tree/master"
             },
-            "time": "2021-04-14T18:36:58+00:00"
+            "time": "2021-06-02T11:50:55+00:00"
         },
         {
             "name": "ldl-framework/typed-collection",
@@ -161,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-typed-collection.git",
-                "reference": "c7e847e7340e12dcb714996359f8de5f3aff82c4"
+                "reference": "9ea64f3a35b791893bbd4da0aa4e7b8a731698b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-typed-collection/zipball/c7e847e7340e12dcb714996359f8de5f3aff82c4",
-                "reference": "c7e847e7340e12dcb714996359f8de5f3aff82c4",
+                "url": "https://api.github.com/repos/pthreat/ldl-typed-collection/zipball/9ea64f3a35b791893bbd4da0aa4e7b8a731698b3",
+                "reference": "9ea64f3a35b791893bbd4da0aa4e7b8a731698b3",
                 "shasum": ""
             },
             "require": {
@@ -201,9 +202,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pthreat/ldl-typed-collection/issues",
-                "source": "https://github.com/pthreat/ldl-typed-collection/tree/fix/1200190593143576"
+                "source": "https://github.com/pthreat/ldl-typed-collection/tree/master"
             },
-            "time": "2021-04-13T16:28:02+00:00"
+            "time": "2021-05-21T12:20:54+00:00"
         },
         {
             "name": "ldl-framework/validators",
@@ -211,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-validators.git",
-                "reference": "9e422f9935bdd6db5b359346a78f744fb32f7d93"
+                "reference": "6fca57e6eb67362bc01f2177f01495df884255ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/9e422f9935bdd6db5b359346a78f744fb32f7d93",
-                "reference": "9e422f9935bdd6db5b359346a78f744fb32f7d93",
+                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/6fca57e6eb67362bc01f2177f01495df884255ff",
+                "reference": "6fca57e6eb67362bc01f2177f01495df884255ff",
                 "shasum": ""
             },
             "require": {
@@ -251,20 +252,20 @@
                 "issues": "https://github.com/pthreat/ldl-validators/issues",
                 "source": "https://github.com/pthreat/ldl-validators/tree/master"
             },
-            "time": "2021-04-15T17:53:36+00:00"
+            "time": "2021-06-08T14:18:39+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.1",
+            "version": "v1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
+                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
-                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
+                "reference": "2df51500adbaebdc4c38dea4c89a2e131c45c8a1",
                 "shasum": ""
             },
             "require": {
@@ -276,7 +277,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.23-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -315,7 +316,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.0"
             },
             "funding": [
                 {
@@ -331,20 +332,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-22T09:19:47+00:00"
+            "time": "2021-05-27T09:27:20+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.22.1",
+            "version": "v1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91"
+                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/dc3063ba22c2a1fd2f45ed856374d79114998f91",
-                "reference": "dc3063ba22c2a1fd2f45ed856374d79114998f91",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/eca0bf41ed421bed1b57c4958bab16aa86b757d0",
+                "reference": "eca0bf41ed421bed1b57c4958bab16aa86b757d0",
                 "shasum": ""
             },
             "require": {
@@ -353,7 +354,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.23-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -398,7 +399,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.22.1"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.0"
             },
             "funding": [
                 {
@@ -414,20 +415,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-02-19T12:13:01+00:00"
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.2.6",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "89412a68ea2e675b4e44f260a5666729f77f668e"
+                "reference": "1d3953e627fe4b5f6df503f356b6545ada6351f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/89412a68ea2e675b4e44f260a5666729f77f668e",
-                "reference": "89412a68ea2e675b4e44f260a5666729f77f668e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/1d3953e627fe4b5f6df503f356b6545ada6351f3",
+                "reference": "1d3953e627fe4b5f6df503f356b6545ada6351f3",
                 "shasum": ""
             },
             "require": {
@@ -486,7 +487,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.2.6"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.3.0"
             },
             "funding": [
                 {
@@ -502,7 +503,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-28T09:42:18+00:00"
+            "time": "2021-05-27T12:28:50+00:00"
         }
     ],
     "packages-dev": [],
