@@ -8,6 +8,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
-- fixes/finder-result - Modification which Integrates validator reset capability / Max depth directory validator
+- feature/1200366404543322 - Modification which Integrates validator reset capability / Max depth directory validator
 
 ### Changed
