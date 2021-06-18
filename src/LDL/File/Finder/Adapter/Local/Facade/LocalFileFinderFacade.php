@@ -8,19 +8,19 @@ use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Finder\Facade\FinderFacadeInterface;
 use LDL\File\Finder\FileFinder;
 use LDL\File\Finder\FinderResult;
-use LDL\Validators\Chain\ValidatorChain;
+use LDL\Validators\Chain\ValidatorChainInterface;
 
 class LocalFileFinderFacade implements FinderFacadeInterface
 {
     public static function find(
         iterable $directories,
-        iterable $validators=null,
+        ValidatorChainInterface $validators=null,
         iterable $onAccept=null,
         iterable $onReject=null,
         iterable $onFile=null
     ) : iterable
     {
-        $l = new LocalFileFinderAdapter(new ValidatorChain($validators));
+        $l = new LocalFileFinderAdapter($validators);
 
         if(null !== $onAccept){
             $l->onAccept()->appendMany($onAccept);
@@ -44,7 +44,7 @@ class LocalFileFinderFacade implements FinderFacadeInterface
 
     public static function findResult(
         iterable $directories,
-        iterable $validators=null,
+        ValidatorChainInterface $validators=null,
         iterable $onAccept=null,
         iterable $onReject=null,
         iterable $onFile=null
