@@ -41,8 +41,8 @@ try{
     ]);
 
     if($depth > 0){
-        $fileChain->unshift(new DirectoryDepthValidator($depth, true));
-        $directoryChain->unshift(new DirectoryDepthValidator($depth, true));
+        $fileChain->unshift(new DirectoryDepthValidator($depth));
+        $directoryChain->unshift(new DirectoryDepthValidator($depth));
     }
 
     $r = LocalFileFinderFacade::findResult(

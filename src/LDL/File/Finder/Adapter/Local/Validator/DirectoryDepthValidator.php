@@ -4,10 +4,13 @@ namespace LDL\File\Finder\Adapter\Local\Validator;
 
 use LDL\Validators\Config\Exception\InvalidConfigException;
 use LDL\Validators\Config\ValidatorConfigInterface;
+use LDL\Validators\Traits\ValidatorValidateTrait;
 use LDL\Validators\ValidatorInterface;
 
 class DirectoryDepthValidator implements ValidatorInterface
 {
+    use ValidatorValidateTrait;
+
     /**
      * @var Config\DirectoryDepthValidatorConfig
      */
@@ -16,15 +19,6 @@ class DirectoryDepthValidator implements ValidatorInterface
     public function __construct(int $depth = 2, bool $dumpable=true)
     {
         $this->config = new Config\DirectoryDepthValidatorConfig($depth, $dumpable);
-    }
-
-    /**
-     * @param mixed $path
-     * @throws \Exception
-     */
-    public function validate($path): void
-    {
-        $this->assertTrue($path);
     }
 
     public function assertTrue($path): void
