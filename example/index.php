@@ -14,6 +14,7 @@ use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
 use LDL\Validators\RegexValidator;
 use LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator;
+use LDL\Framework\Helper\IterableHelper;
 
 try{
 
@@ -45,21 +46,19 @@ try{
         $directoryChain->unshift(new DirectoryDepthValidator($depth));
     }
 
-    $r = LocalFileFinderFacade::findResult(
+    $r = LocalFileFinderFacade::find(
         $files,
+        true,
         new OrValidatorChain([
             $fileChain,
             $directoryChain
-        ]),
-        [
-          static function (string $path){
-            dump('Accept:', $path);
-          }
-        ]
+        ])
     );
 
+    /*$files = IterableHelper::toArray($r);
+
     dump("DUMP FOUND FILES");
-    dump($r->count());
+    dump(count($files));*/
     /**
      * @var FoundFile $f
      */

@@ -7,57 +7,25 @@ use LDL\File\Finder\Adapter\Collection\AdapterCollection;
 use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Finder\Facade\FinderFacadeInterface;
 use LDL\File\Finder\FileFinder;
-use LDL\File\Finder\FinderResult;
 use LDL\Validators\Chain\ValidatorChainInterface;
 
 class LocalFileFinderFacade implements FinderFacadeInterface
 {
     public static function find(
         iterable $directories,
-        ValidatorChainInterface $validators=null,
-        iterable $onAccept=null,
-        iterable $onReject=null,
-        iterable $onFile=null
+        bool $recursive = true,
+        ValidatorChainInterface $validators=null
     ) : iterable
     {
-        $l = new LocalFileFinderAdapter($validators);
-
-        if(null !== $onAccept){
-            $l->onAccept()->appendMany($onAccept);
-        }
-
-        if(null !== $onReject){
-            $l->onReject()->appendMany($onReject);
-        }
-
-        if(null !== $onFile){
-            $l->onFile()->appendMany($onFile);
-        }
+        $l = new LocalFileFinderAdapter(
+            $validators
+        );
 
         yield from (new FileFinder(
             new AdapterCollection([
                 $l
             ])
         ))
-        ->find(new DirectoryCollection($directories));
-    }
-
-    public static function findResult(
-        iterable $directories,
-        ValidatorChainInterface $validators=null,
-        iterable $onAccept=null,
-        iterable $onReject=null,
-        iterable $onFile=null
-    ): FinderResult
-    {
-        return new FinderResult(
-            self::find(
-                $directories,
-                $validators,
-                $onAccept,
-                $onReject,
-                $onFile
-            )
-        );
+        ->find(new DirectoryCollection($directories), $recursive);
     }
 }
