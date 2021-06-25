@@ -5,6 +5,7 @@ namespace LDL\File\Finder\Adapter\Local;
 use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\File\Finder\Adapter\AdapterInterface;
 use LDL\File\Finder\FoundFile;
+use LDL\Framework\Base\Collection\CallableCollectionInterface;
 use LDL\Validators\Chain\ValidatorChainInterface;
 use LDL\Validators\HasValidatorResultInterface;
 
@@ -43,31 +44,21 @@ class LocalFileFinderAdapter implements AdapterInterface
 
     private $count;
 
-    public function __construct(ValidatorChainInterface $validatorChain = null)
+    public function __construct(
+        ValidatorChainInterface $validatorChain = null,
+        CallableCollectionInterface $onAccept = null,
+        CallableCollectionInterface $onReject = null,
+        CallableCollectionInterface $onFile = null
+    )
     {
         $this->validators = $validatorChain;
-        $this->onFile = new CallableCollection();
-        $this->onReject = new CallableCollection();
-        $this->onAccept = new CallableCollection();
+        $this->onFile = $onFile ?? new CallableCollection();
+        $this->onReject = $onReject ?? new CallableCollection();
+        $this->onAccept = $onAccept ?? new CallableCollection();
         $this->validatorsResult = $this->validators->filterByInterfaceRecursive(HasValidatorResultInterface::class);
     }
 
-    public function onFile() : CallableCollection
-    {
-        return $this->onFile;
-    }
-
-    public function onReject(): CallableCollection
-    {
-        return $this->onReject;
-    }
-
-    public function onAccept() : CallableCollection
-    {
-        return $this->onAccept;
-    }
-
-    public function find(iterable $directories): iterable
+    public function find(iterable $directories, bool $recursive = true): iterable
     {
         foreach($directories as $dir){
             if(!is_string($dir)){
@@ -91,7 +82,7 @@ class LocalFileFinderAdapter implements AdapterInterface
                     continue;
                 }
 
-                $this->onFile()->call($file);
+                $this->onFile->call($file);
 
                 $this->count++;
 
@@ -112,7 +103,7 @@ class LocalFileFinderAdapter implements AdapterInterface
                         $this->validatorsResult->getCollection()
                     );
 
-                    $this->onAccept()->call($file, $this->validators);
+                    $this->onAccept->call($file, $this->validators);
 
                     yield $foundFile;
 
@@ -122,7 +113,12 @@ class LocalFileFinderAdapter implements AdapterInterface
 
                 }catch(\Exception $e){
 
-                    $this->onReject()->call($file, $this->validators);
+                    if($recursive && is_dir($file)){
+                        yield from $this->find([$file]);
+                        continue;
+                    }
+
+                    $this->onReject->call($file, $this->validators);
 
                     continue;
                 }

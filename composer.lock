@@ -65,12 +65,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-finder.git",
-                "reference": "4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672"
+                "reference": "9c1f77415bd4601d177f8364ca2fd222e2b9e78b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672",
-                "reference": "4c9d355c5b8fa3c5c1dfaf4b2fa164d21f014672",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/9c1f77415bd4601d177f8364ca2fd222e2b9e78b",
+                "reference": "9c1f77415bd4601d177f8364ca2fd222e2b9e78b",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "issues": "https://github.com/pthreat/ldl-file-finder/issues",
                 "source": "https://github.com/pthreat/ldl-file-finder/tree/master"
             },
-            "time": "2021-05-28T14:52:05+00:00"
+            "time": "2021-06-25T16:22:29+00:00"
         },
         {
             "name": "ldl-framework/framework-base",
@@ -212,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-validators.git",
-                "reference": "6fca57e6eb67362bc01f2177f01495df884255ff"
+                "reference": "75f9bc658e89797f9884f41916733336e5557428"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/6fca57e6eb67362bc01f2177f01495df884255ff",
-                "reference": "6fca57e6eb67362bc01f2177f01495df884255ff",
+                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/75f9bc658e89797f9884f41916733336e5557428",
+                "reference": "75f9bc658e89797f9884f41916733336e5557428",
                 "shasum": ""
             },
             "require": {
@@ -252,7 +252,7 @@
                 "issues": "https://github.com/pthreat/ldl-validators/issues",
                 "source": "https://github.com/pthreat/ldl-validators/tree/master"
             },
-            "time": "2021-06-08T14:18:39+00:00"
+            "time": "2021-06-25T12:30:04+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
