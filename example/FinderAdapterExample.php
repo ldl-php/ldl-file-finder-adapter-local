@@ -3,12 +3,11 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use LDL\File\Finder\FoundFile;
+use LDL\Framework\Helper\ComparisonOperatorHelper;
 use LDL\Validators\HasValidatorResultInterface;
 use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Validator\FileTypeValidator;
-use LDL\File\Validator\Config\FileTypeValidatorConfig;
 use LDL\File\Validator\FileSizeValidator;
-use LDL\File\Validator\Config\FileSizeValidatorConfig;
 use LDL\File\Validator\HasRegexContentValidator;
 use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
@@ -16,7 +15,6 @@ use LDL\Validators\RegexValidator;
 use LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator;
 
 try{
-
     echo "[ Find ]\n";
 
     if(!isset($_SERVER['argv'][1], $_SERVER['argv'][2])){
@@ -30,8 +28,8 @@ try{
     $start = hrtime(true);
 
     $fileChain = new AndValidatorChain([
-        new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_REGULAR]),
-        new FileSizeValidator(1000000, FileSizeValidatorConfig::OPERATOR_LTE),
+        new FileTypeValidator([FileTypeValidator::FILE_TYPE_REGULAR]),
+        new FileSizeValidator(1000000, ComparisonOperatorHelper::OPERATOR_LTE),
         new HasRegexContentValidator($match, true)
     ]);
 
@@ -43,7 +41,7 @@ try{
         new OrValidatorChain([
             $fileChain,
             new AndValidatorChain([
-                new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_DIRECTORY]),
+                new FileTypeValidator([FileTypeValidator::FILE_TYPE_DIRECTORY]),
                 new RegexValidator($match)
             ])
         ])

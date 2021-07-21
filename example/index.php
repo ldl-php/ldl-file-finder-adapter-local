@@ -5,16 +5,14 @@ require __DIR__.'/../vendor/autoload.php';
 use LDL\File\Finder\Adapter\Local\Facade\LocalFileFinderFacade;
 use LDL\File\Finder\FoundFile;
 use LDL\File\Validator\FileTypeValidator;
-use LDL\File\Validator\Config\FileTypeValidatorConfig;
 use LDL\File\Validator\FileSizeValidator;
-use LDL\File\Validator\Config\FileSizeValidatorConfig;
 use LDL\File\Validator\HasRegexContentValidator;
+use LDL\Framework\Helper\ComparisonOperatorHelper;
 use LDL\Validators\HasValidatorResultInterface;
 use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
 use LDL\Validators\RegexValidator;
 use LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator;
-use LDL\Framework\Helper\IterableHelper;
 
 try{
 
@@ -31,13 +29,13 @@ try{
     $start = hrtime(true);
 
     $fileChain = new AndValidatorChain([
-        new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_REGULAR]),
-        new FileSizeValidator(1000000, FileSizeValidatorConfig::OPERATOR_LTE),
+        new FileTypeValidator([FileTypeValidator::FILE_TYPE_REGULAR]),
+        new FileSizeValidator(1000000, ComparisonOperatorHelper::OPERATOR_LTE),
         new HasRegexContentValidator($match, true)
     ]);
 
     $directoryChain = new AndValidatorChain([
-        new FileTypeValidator([FileTypeValidatorConfig::FILE_TYPE_DIRECTORY]),
+        new FileTypeValidator([FileTypeValidator::FILE_TYPE_DIRECTORY]),
         new RegexValidator($match)
     ]);
 

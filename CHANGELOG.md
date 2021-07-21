@@ -13,3 +13,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - feature/1200366404543322 - Modification which Integrates validator reset capability / Max depth directory validator
 
 ### Changed
+
+- fix/1200624131677614 - Fix validator - Remove config and dumpable. Add a description

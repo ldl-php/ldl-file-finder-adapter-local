@@ -2,23 +2,56 @@
 
 namespace LDL\File\Finder\Adapter\Local\Validator;
 
-use LDL\Validators\Config\Exception\InvalidConfigException;
-use LDL\Validators\Config\ValidatorConfigInterface;
 use LDL\Validators\Traits\ValidatorValidateTrait;
+use LDL\Validators\ValidatorHasConfigInterface;
 use LDL\Validators\ValidatorInterface;
 
-class DirectoryDepthValidator implements ValidatorInterface
+class DirectoryDepthValidator implements ValidatorInterface, ValidatorHasConfigInterface
 {
     use ValidatorValidateTrait;
 
     /**
-     * @var Config\DirectoryDepthValidatorConfig
+     * @var int
      */
-    private $config;
+    private $depth;
 
-    public function __construct(int $depth = 2, bool $dumpable=true)
+    /**
+     * @var string|null
+     */
+    private $description;
+
+    public function __construct(int $depth = 2, string $description = null)
     {
-        $this->config = new Config\DirectoryDepthValidatorConfig($depth, $dumpable);
+        if($depth <= 0){
+            $msg = sprintf('Depth for validator "%s" must be a integer greater than 0', DirectoryDepthValidator::class);
+            throw new \InvalidArgumentException($msg);
+        }
+
+        $this->depth = $depth;
+        $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDepth(): int
+    {
+        return $this->depth;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        if(!$this->description){
+            return sprintf(
+                'Directory depth is: %s',
+                $this->depth,
+            );
+        }
+
+        return $this->description;
     }
 
     public function assertTrue($path): void
@@ -26,43 +59,43 @@ class DirectoryDepthValidator implements ValidatorInterface
         $base = dirname($path);
 
         $dirs = substr_count($base, \DIRECTORY_SEPARATOR);
-        $maxDepthExceeded = $dirs > $this->config->getDepth();
+        $maxDepthExceeded = $dirs > $this->depth;
 
         if($maxDepthExceeded){
             throw new Exception\MaxDepthException("Maximum directory depth exceeded");
         }
     }
 
-    /**
-     * @param ValidatorConfigInterface $config
-     * @return ValidatorInterface
-     * @throws InvalidConfigException
-     */
-    public static function fromConfig(ValidatorConfigInterface $config): ValidatorInterface
+    public function jsonSerialize(): array
     {
-        if(false === $config instanceof Config\DirectoryDepthValidatorConfig){
-            $msg = sprintf(
-                'Config expected to be %s, config of class %s was given',
-                __CLASS__,
-                get_class($config)
-            );
-            throw new InvalidConfigException($msg);
-        }
-
-        /**
-         * @var Config\DirectoryDepthValidatorConfig $config
-         */
-        return new self(
-            $config->getDepth(),
-            $config->isDumpable()
-        );
+        return $this->getConfig();
     }
 
     /**
-     * @return Config\DirectoryDepthValidatorConfig
+     * @param array $data
+     * @return ValidatorInterface
+     * @throws Exception\DirectoryDepthValidatorException
      */
-    public function getConfig(): Config\DirectoryDepthValidatorConfig
+    public static function fromConfig(array $data = []): ValidatorInterface
     {
-        return $this->config;
+        try{
+            return new self(
+                array_key_exists('depth', $data) ? (int)$data['depth'] : 2,
+                $data['description'] ?? null
+            );
+        }catch(\Exception $e){
+            throw new Exception\DirectoryDepthValidatorException($e->getMessage());
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return [
+            'depth' => $this->depth,
+            'description' => $this->getDescription()
+        ];
     }
 }
