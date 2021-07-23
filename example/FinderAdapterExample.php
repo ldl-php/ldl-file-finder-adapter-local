@@ -3,7 +3,6 @@
 require __DIR__.'/../vendor/autoload.php';
 
 use LDL\File\Finder\FoundFile;
-use LDL\Framework\Helper\ComparisonOperatorHelper;
 use LDL\Validators\HasValidatorResultInterface;
 use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Validator\FileTypeValidator;
@@ -13,6 +12,8 @@ use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
 use LDL\Validators\RegexValidator;
 use LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator;
+use LDL\Framework\Base\Constants;
+use LDL\File\Helper\Constants\FileTypeConstants;
 
 try{
     echo "[ Find ]\n";
@@ -28,20 +29,22 @@ try{
     $start = hrtime(true);
 
     $fileChain = new AndValidatorChain([
-        new FileTypeValidator([FileTypeValidator::FILE_TYPE_REGULAR]),
-        new FileSizeValidator(1000000, ComparisonOperatorHelper::OPERATOR_LTE),
+        new FileTypeValidator([FileTypeConstants::FILE_TYPE_REGULAR]),
+        new FileSizeValidator(1000000, Constants::OPERATOR_LTE),
         new HasRegexContentValidator($match, true)
     ]);
 
     if($depth > 0){
-        $fileChain->unshift(new DirectoryDepthValidator($depth));
+        $fileChain->getChainItems()->unshift(new DirectoryDepthValidator($depth));
     }
+
+    $fileChain->getChainItems()->lock();
 
     $r = (new LocalFileFinderAdapter(
         new OrValidatorChain([
             $fileChain,
             new AndValidatorChain([
-                new FileTypeValidator([FileTypeValidator::FILE_TYPE_DIRECTORY]),
+                new FileTypeValidator([FileTypeConstants::FILE_TYPE_DIRECTORY]),
                 new RegexValidator($match)
             ])
         ])
@@ -52,10 +55,11 @@ try{
      */
     foreach($r as $f){
         echo "File: $f\n";
+
         /**
          * @var HasValidatorResultInterface $v
          */
-        foreach($f->getValidatorChain() as $v){
+        foreach($f->getValidators() as $v){
             var_dump($v->getResult());
         }
     }
@@ -66,7 +70,7 @@ try{
 }catch(\Exception $e) {
 
     echo "[ Finder failed! ]\n";
-    var_dump($e);
+    var_dump($e->getTraceAsString());
 
 }
 
