@@ -40,9 +40,12 @@ try{
     ]);
 
     if($depth > 0){
-        $fileChain->unshift(new DirectoryDepthValidator($depth));
-        $directoryChain->unshift(new DirectoryDepthValidator($depth));
+        $fileChain->getChainItems()->unshift(new DirectoryDepthValidator($depth));
+        $directoryChain->getChainItems()->unshift(new DirectoryDepthValidator($depth));
     }
+
+    $fileChain->getChainItems()->lock();
+    $directoryChain->getChainItems()->lock();
 
     $r = LocalFileFinderFacade::find(
         $files,
@@ -65,7 +68,7 @@ try{
         /**
          * @var HasValidatorResultInterface $v
          */
-        foreach($f->getValidatorChain() as $v){
+        foreach($f->getValidators() as $v){
             var_dump($v->getResult());
         }
     }

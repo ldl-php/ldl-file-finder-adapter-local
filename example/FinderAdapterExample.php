@@ -34,8 +34,10 @@ try{
     ]);
 
     if($depth > 0){
-        $fileChain->unshift(new DirectoryDepthValidator($depth));
+        $fileChain->getChainItems()->unshift(new DirectoryDepthValidator($depth));
     }
+
+    $fileChain->getChainItems()->lock();
 
     $r = (new LocalFileFinderAdapter(
         new OrValidatorChain([
@@ -52,10 +54,11 @@ try{
      */
     foreach($r as $f){
         echo "File: $f\n";
+
         /**
          * @var HasValidatorResultInterface $v
          */
-        foreach($f->getValidatorChain() as $v){
+        foreach($f->getValidators() as $v){
             var_dump($v->getResult());
         }
     }
@@ -66,7 +69,7 @@ try{
 }catch(\Exception $e) {
 
     echo "[ Finder failed! ]\n";
-    var_dump($e);
+    var_dump($e->getTraceAsString());
 
 }
 
