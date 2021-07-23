@@ -6,7 +6,9 @@ use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\File\Finder\Adapter\AdapterInterface;
 use LDL\File\Finder\FoundFile;
 use LDL\Framework\Base\Collection\CallableCollectionInterface;
+use LDL\Framework\Helper\Iterable\Filter\InterfaceFilter;
 use LDL\Validators\Chain\ValidatorChainInterface;
+use LDL\Validators\Collection\ValidatorCollection;
 use LDL\Validators\HasValidatorResultInterface;
 
 class LocalFileFinderAdapter implements AdapterInterface
@@ -55,7 +57,12 @@ class LocalFileFinderAdapter implements AdapterInterface
         $this->onFile = $onFile ?? new CallableCollection();
         $this->onReject = $onReject ?? new CallableCollection();
         $this->onAccept = $onAccept ?? new CallableCollection();
-        $this->validatorsResult = $this->validators->filterByInterfaceRecursive(HasValidatorResultInterface::class);
+        $this->validatorsResult = new ValidatorCollection(
+            InterfaceFilter::filterByInterfaceRecursive(
+                HasValidatorResultInterface::class,
+                $this->validators->getCollection()
+            )
+        );
     }
 
     public function find(iterable $directories, bool $recursive = true): iterable
@@ -100,7 +107,7 @@ class LocalFileFinderAdapter implements AdapterInterface
                     $foundFile = new FoundFile(
                         $file,
                         new \SplFileInfo($file),
-                        $this->validatorsResult->getCollection()
+                        $this->validatorsResult
                     );
 
                     $this->onAccept->call($file, $this->validators);

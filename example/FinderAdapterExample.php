@@ -52,10 +52,11 @@ try{
      */
     foreach($r as $f){
         echo "File: $f\n";
+
         /**
          * @var HasValidatorResultInterface $v
          */
-        foreach($f->getValidatorChain() as $v){
+        foreach($f->getValidators() as $v){
             var_dump($v->getResult());
         }
     }

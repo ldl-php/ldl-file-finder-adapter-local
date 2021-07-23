@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-common.git",
-                "reference": "5dfc8e60e9d8684399088ea4aac5433c861f2c0b"
+                "reference": "99b4aa714ee06cfe8b23d058960ddf5db511d230"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/5dfc8e60e9d8684399088ea4aac5433c861f2c0b",
-                "reference": "5dfc8e60e9d8684399088ea4aac5433c861f2c0b",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/99b4aa714ee06cfe8b23d058960ddf5db511d230",
+                "reference": "99b4aa714ee06cfe8b23d058960ddf5db511d230",
                 "shasum": ""
             },
             "require": {
@@ -55,9 +55,9 @@
             ],
             "support": {
                 "issues": "https://github.com/pthreat/ldl-file-common/issues",
-                "source": "https://github.com/pthreat/ldl-file-common/tree/master"
+                "source": "https://github.com/pthreat/ldl-file-common/tree/feature/1200637529087859"
             },
-            "time": "2021-07-21T11:52:58+00:00"
+            "time": "2021-07-22T10:28:13+00:00"
         },
         {
             "name": "ldl-framework/file-finder",
@@ -65,12 +65,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-finder.git",
-                "reference": "9c1f77415bd4601d177f8364ca2fd222e2b9e78b"
+                "reference": "453b75dfc71f5568d208f2a2ddbff528cc5da974"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/9c1f77415bd4601d177f8364ca2fd222e2b9e78b",
-                "reference": "9c1f77415bd4601d177f8364ca2fd222e2b9e78b",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-finder/zipball/453b75dfc71f5568d208f2a2ddbff528cc5da974",
+                "reference": "453b75dfc71f5568d208f2a2ddbff528cc5da974",
                 "shasum": ""
             },
             "require": {
@@ -112,7 +112,7 @@
                 "issues": "https://github.com/pthreat/ldl-file-finder/issues",
                 "source": "https://github.com/pthreat/ldl-file-finder/tree/master"
             },
-            "time": "2021-06-25T16:22:29+00:00"
+            "time": "2021-07-22T14:41:05+00:00"
         },
         {
             "name": "ldl-framework/framework-base",
@@ -120,12 +120,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-framework-base.git",
-                "reference": "48a98bce8ef387a9ba40969a3059d7e84e4367ac"
+                "reference": "78fc6c077c4d278f75e26564c25612606a7c2e39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-framework-base/zipball/48a98bce8ef387a9ba40969a3059d7e84e4367ac",
-                "reference": "48a98bce8ef387a9ba40969a3059d7e84e4367ac",
+                "url": "https://api.github.com/repos/pthreat/ldl-framework-base/zipball/78fc6c077c4d278f75e26564c25612606a7c2e39",
+                "reference": "78fc6c077c4d278f75e26564c25612606a7c2e39",
                 "shasum": ""
             },
             "require": {
@@ -152,9 +152,9 @@
             "description": "LDL Framework base contracts and exceptions",
             "support": {
                 "issues": "https://github.com/pthreat/ldl-framework-base/issues",
-                "source": "https://github.com/pthreat/ldl-framework-base/tree/feature/1200636482135423"
+                "source": "https://github.com/pthreat/ldl-framework-base/tree/master"
             },
-            "time": "2021-07-21T12:38:20+00:00"
+            "time": "2021-07-23T14:59:28+00:00"
         },
         {
             "name": "ldl-framework/typed-collection",
@@ -162,12 +162,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-typed-collection.git",
-                "reference": "0d3ba6a205ec15858764724194ac30ec1a984c4b"
+                "reference": "38d5265ced72da1d692e77007674960a57d03594"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-typed-collection/zipball/0d3ba6a205ec15858764724194ac30ec1a984c4b",
-                "reference": "0d3ba6a205ec15858764724194ac30ec1a984c4b",
+                "url": "https://api.github.com/repos/pthreat/ldl-typed-collection/zipball/38d5265ced72da1d692e77007674960a57d03594",
+                "reference": "38d5265ced72da1d692e77007674960a57d03594",
                 "shasum": ""
             },
             "require": {
@@ -204,7 +204,7 @@
                 "issues": "https://github.com/pthreat/ldl-typed-collection/issues",
                 "source": "https://github.com/pthreat/ldl-typed-collection/tree/master"
             },
-            "time": "2021-07-20T15:52:16+00:00"
+            "time": "2021-07-22T11:19:14+00:00"
         },
         {
             "name": "ldl-framework/validators",
@@ -212,12 +212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-validators.git",
-                "reference": "673be6af4409f1de4b1e4165421f02cf9af58944"
+                "reference": "c76e63a4a81b3766d0991c1f400f4fe83318e4fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/673be6af4409f1de4b1e4165421f02cf9af58944",
-                "reference": "673be6af4409f1de4b1e4165421f02cf9af58944",
+                "url": "https://api.github.com/repos/pthreat/ldl-validators/zipball/c76e63a4a81b3766d0991c1f400f4fe83318e4fa",
+                "reference": "c76e63a4a81b3766d0991c1f400f4fe83318e4fa",
                 "shasum": ""
             },
             "require": {
@@ -252,7 +252,7 @@
                 "issues": "https://github.com/pthreat/ldl-validators/issues",
                 "source": "https://github.com/pthreat/ldl-validators/tree/master"
             },
-            "time": "2021-07-21T13:52:36+00:00"
+            "time": "2021-07-23T15:53:40+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -520,5 +520,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
