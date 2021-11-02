@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pthreat/ldl-file-common.git",
-                "reference": "d75df2c64ee1bf9b02071b41db0c631fa9795f25"
+                "reference": "c1f9e536124f4ad6ca8db3d9f85757e39b5facef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/d75df2c64ee1bf9b02071b41db0c631fa9795f25",
-                "reference": "d75df2c64ee1bf9b02071b41db0c631fa9795f25",
+                "url": "https://api.github.com/repos/pthreat/ldl-file-common/zipball/c1f9e536124f4ad6ca8db3d9f85757e39b5facef",
+                "reference": "c1f9e536124f4ad6ca8db3d9f85757e39b5facef",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "issues": "https://github.com/pthreat/ldl-file-common/issues",
                 "source": "https://github.com/pthreat/ldl-file-common/tree/master"
             },
-            "time": "2021-11-01T12:31:32+00:00"
+            "time": "2021-11-01T12:40:07+00:00"
         },
         {
             "name": "ldl-framework/file-finder",

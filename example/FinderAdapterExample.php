@@ -8,12 +8,12 @@ use LDL\File\Finder\Adapter\Local\LocalFileFinderAdapter;
 use LDL\File\Validator\FileTypeValidator;
 use LDL\File\Validator\FileSizeValidator;
 use LDL\File\Validator\HasRegexContentValidator;
-use LDL\Validators\Chain\OrValidatorChain;
 use LDL\Validators\Chain\AndValidatorChain;
-use LDL\Validators\RegexValidator;
 use LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator;
 use LDL\Framework\Base\Constants;
-use LDL\File\Helper\Constants\FileTypeConstants;
+use LDL\File\Constants\FileTypeConstants;
+use LDL\Validators\Chain\OrValidatorChain;
+use LDL\Validators\RegexValidator;
 
 try{
     echo "[ Find ]\n";
@@ -25,14 +25,22 @@ try{
     $depth = isset($_SERVER['argv'][3]) ? (int) $_SERVER['argv'][3] : 0;
     $files = explode(',', $_SERVER['argv'][1]);
     $match = $_SERVER['argv'][2];
-
     $start = hrtime(true);
 
     $fileChain = new AndValidatorChain([
+        //Regular files: not socket, fifos, block device files, etc
         new FileTypeValidator([FileTypeConstants::FILE_TYPE_REGULAR]),
+        //Files which have a size lower or equal to 1000000 bytes (1MB)
         new FileSizeValidator(1000000, Constants::OPERATOR_LTE),
-        new HasRegexContentValidator($match, true)
+        new OrValidatorChain([
+            //File content must match provided regex
+            new HasRegexContentValidator($match, true),
+            //OR, file name must match provided regex
+            new RegexValidator($match)
+        ])
     ]);
+
+    dump(LDL\Validators\Chain\Dumper\ValidatorChainExprDumper::dump($fileChain));
 
     if($depth > 0){
         $fileChain->getChainItems()->unshift(new DirectoryDepthValidator($depth));
@@ -40,20 +48,15 @@ try{
 
     $fileChain->getChainItems()->lock();
 
-    $r = (new LocalFileFinderAdapter(
-        new OrValidatorChain([
-            $fileChain,
-            new AndValidatorChain([
-                new FileTypeValidator([FileTypeConstants::FILE_TYPE_DIRECTORY]),
-                new RegexValidator($match)
-            ])
-        ])
-    ))->find($files);
+    $r = (new LocalFileFinderAdapter($fileChain))->find($files);
 
+
+    $count = 0;
     /**
      * @var FoundFile $f
      */
     foreach($r as $f){
+        $count++;
         echo "File: $f\n";
 
         /**
@@ -66,10 +69,13 @@ try{
 
     $end = hrtime(true);
 
+    echo "Found $count files matching regex $match\n";
+
     echo sprintf('Search took: %s milliseconds %s', ($end-$start)/1e+6,"\n\n");
 }catch(\Exception $e) {
 
     echo "[ Finder failed! ]\n";
+    echo $e->getMessage()."\n";
     var_dump($e->getTraceAsString());
 
 }
