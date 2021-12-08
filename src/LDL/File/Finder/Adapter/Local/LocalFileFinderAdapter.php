@@ -67,6 +67,8 @@ class LocalFileFinderAdapter implements AdapterInterface
     public function find(iterable $directories, bool $recursive = true): iterable
     {
         foreach($directories as $dir){
+            $dir = rtrim($dir, \DIRECTORY_SEPARATOR);
+
             if(!is_string($dir)){
                 continue;
             }

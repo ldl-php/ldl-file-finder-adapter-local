@@ -15,5 +15,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 
-- fixes/1200713875634268 - Fix to comply with validators (getChainItems)
+- fix/1200713875634268 - Fix to comply with validators (getChainItems)
 - fix/1200624131677614 - Fix validator - Remove config and dumpable. Add a description
+- fix/1200203297621245 - Remove extra ending slash on found directory
