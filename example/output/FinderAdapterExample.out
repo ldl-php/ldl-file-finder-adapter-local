@@ -1,0 +1,14 @@
+[ Find ]
+"(LDL\File\Finder\Adapter\Local\Validator\DirectoryDepthValidator && LDL\File\Validator\FileTypeValidator && LDL\File\Validator\FileSizeValidator && (LDL\File\Validator\HasRegexContentValidator || LDL\Validators\RegexValidator))"
+File: /home/ldl/projects/ldl-file-finder-adapter-local/example/FinderAdapterExample.php
+array(1) {
+  [0]=>
+  array(2) {
+    ["number"]=>
+    int(3)
+    ["line"]=>
+    string(129) "passthru(sprintf('php %s/../bin/FileFinder.php /home/ldl/projects/ldl-file-finder-adapter-local/example /passthru/ 1',__DIR__));
+"
+  }
+}
+Found 1 files matching regex /passthru/

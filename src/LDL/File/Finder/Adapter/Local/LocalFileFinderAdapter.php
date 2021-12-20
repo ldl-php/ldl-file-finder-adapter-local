@@ -1,10 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace LDL\File\Finder\Adapter\Local;
 
-use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\File\Finder\Adapter\AdapterInterface;
+use LDL\File\Finder\Adapter\Collection\DirectoryCollection;
 use LDL\File\Finder\FoundFile;
+use LDL\Framework\Base\Collection\CallableCollection;
 use LDL\Framework\Base\Collection\CallableCollectionInterface;
 use LDL\Validators\Chain\ValidatorChainInterface;
 use LDL\Validators\Collection\ValidatorCollectionInterface;
@@ -38,7 +41,8 @@ class LocalFileFinderAdapter implements AdapterInterface
     private $onAccept;
 
     /**
-     * Holds already traversed files (as keys) to avoid symlink recursion
+     * Holds already traversed files (as keys) to avoid symlink recursion.
+     *
      * @var array
      */
     private $files = [];
@@ -50,8 +54,7 @@ class LocalFileFinderAdapter implements AdapterInterface
         CallableCollectionInterface $onAccept = null,
         CallableCollectionInterface $onReject = null,
         CallableCollectionInterface $onFile = null
-    )
-    {
+    ) {
         $this->validators = $validatorChain;
         $this->onFile = $onFile ?? new CallableCollection();
         $this->onReject = $onReject ?? new CallableCollection();
@@ -66,27 +69,29 @@ class LocalFileFinderAdapter implements AdapterInterface
 
     public function find(iterable $directories, bool $recursive = true): iterable
     {
-        foreach($directories as $dir){
-            $dir = rtrim($dir, \DIRECTORY_SEPARATOR);
+        $directories = new DirectoryCollection($directories);
 
-            if(!is_string($dir)){
+        foreach ($directories as $dir) {
+            $dir = rtrim((string) $dir, \DIRECTORY_SEPARATOR);
+
+            if (!is_string($dir)) {
                 continue;
             }
 
-            if(!is_dir($dir)){
+            if (!is_dir($dir)) {
                 continue;
             }
 
             $files = scandir($dir);
 
-            foreach($files as $file){
-                if('.' === $file || '..' === $file){
+            foreach ($files as $file) {
+                if ('.' === $file || '..' === $file) {
                     continue;
                 }
 
                 $file = sprintf('%s%s%s', $dir, DIRECTORY_SEPARATOR, $file);
 
-                if(array_key_exists($file, $this->files)){
+                if (array_key_exists($file, $this->files)) {
                     continue;
                 }
 
@@ -96,12 +101,12 @@ class LocalFileFinderAdapter implements AdapterInterface
 
                 $this->files[$file] = true;
 
-                if(!is_readable($file)){
+                if (!is_readable($file)) {
                     continue;
                 }
 
-                try{
-                    if(null !== $this->validators) {
+                try {
+                    if (null !== $this->validators) {
                         $this->validators->validate($file);
                     }
 
@@ -115,13 +120,11 @@ class LocalFileFinderAdapter implements AdapterInterface
 
                     yield $foundFile;
 
-                    if(is_dir($file)){
+                    if (is_dir($file)) {
                         yield from $this->find([$file]);
                     }
-
-                }catch(\Exception $e){
-
-                    if($recursive && is_dir($file)){
+                } catch (\Exception $e) {
+                    if ($recursive && is_dir($file)) {
                         yield from $this->find([$file]);
                         continue;
                     }
@@ -143,5 +146,4 @@ class LocalFileFinderAdapter implements AdapterInterface
     {
         return $this->validators;
     }
-
 }
