@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace LDL\File\Finder\Adapter\Local\Validator;
 
@@ -20,9 +22,16 @@ class DirectoryDepthValidator implements ValidatorInterface, ValidatorHasConfigI
      */
     private $description;
 
-    public function __construct(int $depth = 2, string $description = null)
-    {
-        if($depth <= 0){
+    /**
+     * @var string
+     */
+    private $baseDirectory;
+
+    public function __construct(
+        int $depth = 2,
+        string $description = null
+    ) {
+        if ($depth <= 0) {
             $msg = sprintf('Depth for validator "%s" must be a integer greater than 0', DirectoryDepthValidator::class);
             throw new \InvalidArgumentException($msg);
         }
@@ -31,22 +40,16 @@ class DirectoryDepthValidator implements ValidatorInterface, ValidatorHasConfigI
         $this->description = $description;
     }
 
-    /**
-     * @return int
-     */
     public function getDepth(): int
     {
         return $this->depth;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): string
     {
-        if(!$this->description){
+        if (!$this->description) {
             return sprintf(
-                'Directory depth is: %s',
+                'Validate that the directory depth is: %s',
                 $this->depth,
             );
         }
@@ -58,10 +61,21 @@ class DirectoryDepthValidator implements ValidatorInterface, ValidatorHasConfigI
     {
         $base = dirname($path);
 
-        $dirs = substr_count($base, \DIRECTORY_SEPARATOR);
-        $maxDepthExceeded = $dirs > $this->depth;
+        if (null === $this->baseDirectory) {
+            $this->baseDirectory = $base;
+        }
 
-        if($maxDepthExceeded){
+        if (0 !== strpos($base, $this->baseDirectory)) {
+            $this->baseDirectory = $base;
+        }
+
+        $base = substr($base, strlen($this->baseDirectory));
+
+        $dirs = substr_count($base, \DIRECTORY_SEPARATOR);
+
+        $maxDepthExceeded = $dirs >= $this->depth;
+
+        if ($maxDepthExceeded) {
             throw new Exception\MaxDepthException("Maximum directory depth exceeded");
         }
     }
@@ -72,30 +86,25 @@ class DirectoryDepthValidator implements ValidatorInterface, ValidatorHasConfigI
     }
 
     /**
-     * @param array $data
-     * @return ValidatorInterface
      * @throws Exception\DirectoryDepthValidatorException
      */
     public static function fromConfig(array $data = []): ValidatorInterface
     {
-        try{
+        try {
             return new self(
-                array_key_exists('depth', $data) ? (int)$data['depth'] : 2,
+                array_key_exists('depth', $data) ? (int) $data['depth'] : 2,
                 $data['description'] ?? null
             );
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             throw new Exception\DirectoryDepthValidatorException($e->getMessage());
         }
     }
 
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return [
             'depth' => $this->depth,
-            'description' => $this->getDescription()
+            'description' => $this->getDescription(),
         ];
     }
 }
